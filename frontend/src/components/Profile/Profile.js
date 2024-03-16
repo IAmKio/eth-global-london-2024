@@ -41,8 +41,8 @@ export default function Profile() {
   React.useEffect(() => {
     if (jarsData) {
       setHandle(jarsData.handle);
-      fetchedBalancesAction();
     }
+    fetchedBalancesAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jarsData]);
 
