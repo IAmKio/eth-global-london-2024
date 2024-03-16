@@ -2,6 +2,7 @@ import { EtherspotTransactionKit } from "@etherspot/transaction-kit";
 import * as ethers from "ethers";
 import { Outlet } from "react-router-dom";
 import stringToMnemonic from "../../services/stringToMnemonic";
+import { Card, Grid } from '@mui/joy';
 
 export default function AppContainer() {
   const wallet = ethers.Wallet.fromMnemonic(
@@ -14,7 +15,15 @@ export default function AppContainer() {
       projectKey="public-prime-testnet-key"
       provider={providerWallet}
     >
-      <Outlet />
+      <Grid container>
+        <Grid xs={0} md={3}></Grid>
+        <Grid xs={12} md={6}>
+          <Card>
+            <Outlet />
+          </Card>
+        </Grid>
+        <Grid xs={0} md={3}></Grid>
+      </Grid>
     </EtherspotTransactionKit>
   );
 }
