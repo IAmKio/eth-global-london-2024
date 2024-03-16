@@ -5,7 +5,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const tokenTipApi = createApi({
   reducerPath: "tokenTipApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001/token-tip-me/us-central1/api/",
+    baseUrl: `${process.env.REACT_APP_API_HOSTNAME}/token-tip-me/us-central1/api/`,
     prepareHeaders: async (headers) => {
       const uid = localStorage.getItem("uid");
 

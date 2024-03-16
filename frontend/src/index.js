@@ -8,6 +8,9 @@ import { store } from "./store";
 import LoginContainer from './components/LoginContainer/LoginContainer';
 import AppContainer from './components/AppContainer/AppContainer';
 import Check from './components/Check/Check';
+import Profile from './components/Profile/Profile';
+import Browse from './components/Browse/Browse';
+import Tip from './components/Tip/Tip';
 
 const router = createBrowserRouter([
   {
@@ -24,7 +27,15 @@ const router = createBrowserRouter([
       },
       {
         path: "profile",
-        element: () => <div>Profile</div>,
+        element: <Profile />,
+      },
+      {
+        path: "browse",
+        element: <Browse />,
+      },
+      {
+        path: "browse/:id",
+        element: <Tip />,
       },
     ],
   },
