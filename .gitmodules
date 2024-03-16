@@ -1,3 +1,0 @@
-[submodule "username_registry/lib/solady"]
-	path = username_registry/lib/solady
-	url = https://github.com/vectorized/solady
