@@ -14,7 +14,7 @@
 --------------
 
 >[!IMPORTANT]
->This repo/software is for (ETH Global 2024)[https://ethglobal.com/events/london2024].
+>This repo/software is for [ETH Global 2024](https://ethglobal.com/events/london2024).
 >
 
 ## TokenTip
@@ -26,10 +26,4 @@ Our design ethos is to utilitise existing proven blockchain technology and also 
 
 ## ⚙ Get started
 
-You can either get started by installing the packages yourself here:
-
-```bash
-cd frontend
-npm i
-npm start 
-```
+You can either get started by trying it with [this URL here](https://token-tip-me.web.app/).
