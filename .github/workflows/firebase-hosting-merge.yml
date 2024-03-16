@@ -21,6 +21,7 @@ jobs:
           REACT_APP_ETHERSPOT_KEY: "${{ secrets.ETHERSPOT_KEY }}"
           REACT_APP_CHAIN_ID: 8453
           REACT_APP_ASSET_SYMBOL: BASE
+          REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID: 8453
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
