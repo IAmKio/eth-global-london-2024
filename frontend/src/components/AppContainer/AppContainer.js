@@ -28,6 +28,10 @@ export default function AppContainer() {
         <Grid xs={0} md={3}></Grid>
         <Grid xs={12} md={6}>
           <Card>
+            <Typography level="h1" textAlign={"center"}>
+              TokenTip
+            </Typography>
+
             <Box display={"flex"} justifyContent={"center"}>
               <ToggleButtonGroup>
                 <Button onClick={() => navigate("/app/browse")} value="sm">
