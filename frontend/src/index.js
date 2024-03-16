@@ -6,12 +6,27 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
 import LoginContainer from './components/LoginContainer/LoginContainer';
+import AppContainer from './components/AppContainer/AppContainer';
+import Check from './components/Check/Check';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginContainer />,
-    // errorElement: <NotFound />,
+  },
+  {
+    path: "/app",
+    element: <AppContainer />,
+    children: [
+      {
+        path: "check",
+        element: <Check />,
+      },
+      {
+        path: "profile",
+        element: () => <div>Profile</div>,
+      },
+    ],
   },
 ]);
 

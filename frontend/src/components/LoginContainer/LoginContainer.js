@@ -17,14 +17,14 @@ export default function LoginContainer() {
 
   const startCreatePasskeySequence = async () => {
     const passkeyData = await createPasskey().then((res) => {
-      navigate("/check");
+      navigate("/app/check");
     });
     console.log("Passkey created", passkeyData);
   };
 
   const startGetPasskeyDataSequence = async () => {
     const passkeyData = await getPasskeyData().then((res) => {
-      navigate("/check");
+      navigate("/app/check");
     });
     console.log("Passkey fetch data", passkeyData);
   };
