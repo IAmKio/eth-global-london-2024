@@ -7,17 +7,17 @@ import { LinearGradient } from "react-text-gradients";
 import doneAnimation from "../../assets/lottie/done.json";
 
 export default function CHeck() {
-  const sepoliaAddress = useWalletAddress("etherspot-prime", 80001);
+  const etherspotAddress = useWalletAddress("etherspot-prime", process.env.REACT_APP_CHAIN_ID);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (sepoliaAddress) {
+    if (etherspotAddress) {
       setTimeout(() => {
         navigate("/app/browse");
       }, 3000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sepoliaAddress]);
+  }, [etherspotAddress]);
 
   return (
     <Box>
@@ -25,7 +25,7 @@ export default function CHeck() {
         Fetching your Account Abstraction wallet from Etherspot...
       </Typography>
 
-      {sepoliaAddress && (
+      {etherspotAddress && (
         <Box>
           <Lottie
             style={{
@@ -42,7 +42,7 @@ export default function CHeck() {
             fontSize={20}
           >
             <LinearGradient gradient={["to left", "#17acff ,#ff68f0"]}>
-              {sepoliaAddress}
+              {etherspotAddress}
             </LinearGradient>
           </Typography>
         </Box>

@@ -29,32 +29,32 @@ import { ethers } from 'ethers';
 export default function Tip() {
   const { send, containsEstimatingError, containsSendingError } =
     useEtherspotTransactions();
-  const balances = useEtherspotBalances(80001);
+  const balances = useEtherspotBalances(process.env.REACT_APP_CHAIN_ID);
   const etherspotUtils = useEtherspotUtils();
   const [fetchedBalances, setFetchedBalances] = useState(null);
   const [sendValue, setSendValue] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [sending, setSending] = useState(false);
-  const [maticPrice, setMaticPrice] = useState(0);
+  const [assetPrice, setAssetPrice] = useState(0);
   const params = useParams();
   const {
     data: jarsData,
     isLoading,
     isFetching,
   } = useGetJarsByIdQuery(params.id);
-  const { getPrice } = useEtherspotPrices(137);
+  const { getPrice } = useEtherspotPrices(process.env.REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID);
 
   useEffect(() => {
-    const fetchMaticPrice = async () => {
+    const fetchAssetPrice = async () => {
       const price = await getPrice(ethers.constants.AddressZero);
-      if (price) setMaticPrice(price.usd);
+      if (price) setAssetPrice(price.usd);
     };
-    fetchMaticPrice();
+    fetchAssetPrice();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchedBalancesAction = async () => {
-    const fetchedBalances = await balances.getAccountBalances(undefined, 80001);
+    const fetchedBalances = await balances.getAccountBalances(undefined, process.env.REACT_APP_CHAIN_ID);
     setFetchedBalances(fetchedBalances);
   };
 
@@ -135,13 +135,13 @@ export default function Tip() {
           <FormControl>
             <Typography>How much do you want to tip {params.id}?</Typography>
             <EtherspotBatches onSent={onSendReceiver}>
-              <EtherspotBatch chainId={80001}>
+              <EtherspotBatch chainId={process.env.REACT_APP_CHAIN_ID}>
                 <EtherspotTransaction
                   to={jarsData.etherspotAddress}
                   value={sendValue}
                 >
                   <Input
-                    startDecorator={<Typography>MATIC</Typography>}
+                    startDecorator={<Typography>{process.env.REACT_APP_ASSET_SYMBOL}</Typography>}
                     autoComplete="off"
                     placeholder="0.005"
                     size="lg"
@@ -167,7 +167,8 @@ export default function Tip() {
                         key={`${index}-quick-add`}
                         onClick={() => updateSendValue(+(sendValue ?? 0) + amountToAdd)}
                       >
-                        +{amountToAdd} MATIC
+                        +{amountToAdd} {process.env.REACT_APP_ASSET_SYMBOL}
+                        {assetPrice && ` ($${(amountToAdd * assetPrice).toFixed(2)})`}
                       </Chip>
                     ))}
                   </Box>
