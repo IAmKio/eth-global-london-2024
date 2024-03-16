@@ -54,6 +54,7 @@ export default function Profile() {
   React.useEffect(() => {
     if (saveResult.isSuccess) {
       setSaving(false);
+      alert("Your profile was saved!");
     }
 
     if (saveResult.isError) {

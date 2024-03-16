@@ -20,7 +20,7 @@ jobs:
           REACT_APP_WORLDCOIN_APP_ID: app_staging_73bcd9155d492ed847a45a92360ed9c7
           REACT_APP_ETHERSPOT_KEY: "${{ secrets.ETHERSPOT_KEY }}"
           REACT_APP_CHAIN_ID: 84532
-          REACT_APP_ASSET_SYMBOL: BASE
+          REACT_APP_ASSET_SYMBOL: ETH
           REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID: 8453
           REACT_APP_BASESCAN_KEY: "${{ secrets.BASESCAN_KEY }}"
       - uses: FirebaseExtended/action-hosting-deploy@v0

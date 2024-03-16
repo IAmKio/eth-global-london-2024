@@ -2,14 +2,16 @@ import {
   EtherspotBatch,
   EtherspotBatches,
   EtherspotTransaction,
-  useEtherspotBalances, useEtherspotPrices,
+  useEtherspotPrices,
   useEtherspotTransactions,
   useEtherspotUtils,
-} from '@etherspot/transaction-kit';
+  useWalletAddress,
+} from "@etherspot/transaction-kit";
 import SendIcon from "@mui/icons-material/Send";
 import SubdirectoryArrowRight from "@mui/icons-material/SubdirectoryArrowRight";
 import {
-  Box, Chip,
+  Box,
+  Chip,
   CircularProgress,
   Divider,
   FormControl,
@@ -17,19 +19,23 @@ import {
   Input,
   Modal,
   Typography,
-} from '@mui/joy';
+} from "@mui/joy";
+import { ethers } from "ethers";
 import Lottie from "lottie-react";
 import { useEffect, useState } from "react";
 import Identicon from "react-hooks-identicons";
 import { useParams } from "react-router-dom";
 import sendAnimation from "../../assets/lottie/sent.json";
+import fetchAccountBalance from "../../services/BaseScan";
 import { useGetJarsByIdQuery } from "../../services/api";
-import { ethers } from 'ethers';
 
 export default function Tip() {
   const { send, containsEstimatingError, containsSendingError } =
     useEtherspotTransactions();
-  const balances = useEtherspotBalances(+process.env.REACT_APP_CHAIN_ID);
+  const etherspotAddress = useWalletAddress(
+    "etherspot-prime",
+    +process.env.REACT_APP_CHAIN_ID
+  );
   const etherspotUtils = useEtherspotUtils();
   const [fetchedBalances, setFetchedBalances] = useState(null);
   const [sendValue, setSendValue] = useState(0);
@@ -42,7 +48,9 @@ export default function Tip() {
     isLoading,
     isFetching,
   } = useGetJarsByIdQuery(params.id);
-  const { getPrice } = useEtherspotPrices(+process.env.REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID);
+  const { getPrice } = useEtherspotPrices(
+    +process.env.REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID
+  );
 
   useEffect(() => {
     const fetchAssetPrice = async () => {
@@ -53,25 +61,29 @@ export default function Tip() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchedBalancesAction = async () => {
-    const fetchedBalances = await balances.getAccountBalances(undefined, +process.env.REACT_APP_CHAIN_ID);
-    setFetchedBalances(fetchedBalances);
-  };
-
   const onSendReceiver = (value) => {
     console.log("send receiver", value);
     setModalOpen(true);
     setSending(false);
+    refreshUserBalances();
 
     setTimeout(() => {
       setModalOpen(false);
     }, 3000);
   };
 
+  const refreshUserBalances = () => {
+    fetchAccountBalance(etherspotAddress).then((balance) => {
+      setFetchedBalances(balance);
+    });
+  };
+
   useEffect(() => {
-    fetchedBalancesAction();
+    if (etherspotAddress) {
+      refreshUserBalances();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [etherspotAddress]);
 
   useEffect(() => {
     if (containsEstimatingError) {
@@ -88,7 +100,7 @@ export default function Tip() {
   const updateSendValue = (value) => {
     if (isNaN(+value)) return;
     setSendValue(value);
-  }
+  };
 
   return (
     <Box>
@@ -141,13 +153,17 @@ export default function Tip() {
                   value={sendValue}
                 >
                   <Input
-                    startDecorator={<Typography>{process.env.REACT_APP_ASSET_SYMBOL}</Typography>}
+                    startDecorator={
+                      <Typography>
+                        {process.env.REACT_APP_ASSET_SYMBOL}
+                      </Typography>
+                    }
                     autoComplete="off"
                     placeholder="0.005"
                     size="lg"
                     fullWidth
                     onChange={(e) => updateSendValue(e.target.value)}
-                    value={sendValue ?? ''}
+                    value={sendValue ?? ""}
                     endDecorator={
                       <IconButton
                         onClick={() => {
@@ -165,10 +181,13 @@ export default function Tip() {
                     {[0.05, 1, 5, 25, 100].map((amountToAdd, index) => (
                       <Chip
                         key={`${index}-quick-add`}
-                        onClick={() => updateSendValue(+(sendValue ?? 0) + amountToAdd)}
+                        onClick={() =>
+                          updateSendValue(+(sendValue ?? 0) + amountToAdd)
+                        }
                       >
                         +{amountToAdd} {process.env.REACT_APP_ASSET_SYMBOL}
-                        {!!assetPrice && ` ($${(amountToAdd * assetPrice).toFixed(2)})`}
+                        {!!assetPrice &&
+                          ` ($${(amountToAdd * assetPrice).toFixed(2)})`}
                       </Chip>
                     ))}
                   </Box>
@@ -176,9 +195,9 @@ export default function Tip() {
               </EtherspotBatch>
             </EtherspotBatches>
             <Typography level="body-sm">
-              You currently have{" "}
-              {fetchedBalances?.length &&
-                etherspotUtils.parseBigNumber(fetchedBalances[0].balance)}{" "}
+              You currently have {process.env.REACT_APP_ASSET_SYMBOL}{" "}
+              {fetchedBalances &&
+                etherspotUtils.parseBigNumber(fetchedBalances)}{" "}
               in your Etherspot account
             </Typography>
           </FormControl>
