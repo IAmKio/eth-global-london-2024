@@ -1,5 +1,4 @@
 import {
-  useEtherspotBalances,
   useEtherspotUtils,
   useWalletAddress,
 } from "@etherspot/transaction-kit";
@@ -20,7 +19,7 @@ import { useGetJarsQuery, useUpdateJarsMutation } from "../../services/api";
 
 export default function Profile() {
   const etherspotUtils = useEtherspotUtils();
-  const balances = useEtherspotBalances(+process.env.REACT_APP_CHAIN_ID);
+  // const balances = useEtherspotBalances(+process.env.REACT_APP_CHAIN_ID);
   const [fetchedBalance, setFetchedBalance] = useState(0);
   const { data: jarsData, isLoading, isFetching } = useGetJarsQuery();
   const [triggerSave, saveResult] = useUpdateJarsMutation();
@@ -31,13 +30,13 @@ export default function Profile() {
   );
   const [saving, setSaving] = React.useState(false);
 
-  const fetchedBalancesAction = async () => {
-    const fetchedBalances = await balances.getAccountBalances(
-      undefined,
-      +process.env.REACT_APP_CHAIN_ID
-    );
-    setFetchedBalance(fetchedBalances);
-  };
+  // const fetchedBalancesAction = async () => {
+  //   const fetchedBalances = await balances.getAccountBalances(
+  //     undefined,
+  //     +process.env.REACT_APP_CHAIN_ID
+  //   );
+  //   setFetchedBalance(fetchedBalances);
+  // };
   const baseAccountBalance = async (address) => {
     const balance = await fetchAccountBalance(address);
     setFetchedBalance(balance);
