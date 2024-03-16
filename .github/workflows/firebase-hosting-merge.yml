@@ -15,10 +15,10 @@ jobs:
           cd frontend
           npm i
           npm run build
-          cd ../
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TOKEN_TIP_ME }}"
           channelId: live
           projectId: token-tip-me
+          entryPoint: "firebase"
