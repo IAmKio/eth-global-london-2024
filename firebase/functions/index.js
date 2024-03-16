@@ -23,4 +23,4 @@ api.post("/jars", verifyAuth, add);
 
 api.post("/worldcoin/verify", worldcoinVerify);
 
-exports.api = onRequest(api);
+exports.api = onRequest({ cors: true }, api);

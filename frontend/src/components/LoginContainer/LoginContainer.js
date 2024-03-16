@@ -16,23 +16,23 @@ export default function LoginContainer() {
 
   const startGetPasskeyDataSequence = async () => {
     await getPasskeyData()
-    .then(async (response) => {
-      console.log(response);
-      if (response) {
-        navigate("/app/check");
-      } else {
-        await createPasskey();
-        navigate("/app/check");
-      }
-    })
-    .catch(async (e) => {
-      console.warn(
-        "Could not get existing passkey, trying to create a new one:",
-        e.message
-      );
-      const r = await createPasskey();
-      return r;
-    });
+      .then(async (response) => {
+        console.log(response);
+        if (response) {
+          navigate("/app/check");
+        } else {
+          await createPasskey();
+          navigate("/app/check");
+        }
+      })
+      .catch(async (e) => {
+        console.warn(
+          "Could not get existing passkey, trying to create a new one:",
+          e.message
+        );
+        const r = await createPasskey();
+        return r;
+      });
   };
 
   const startDeletePasskeySequence = async () => {
@@ -59,9 +59,8 @@ export default function LoginContainer() {
   };
 
   const handleVerify = async (proof) => {
-    console.log(proof);
     const res = await fetch(
-      `${process.env.REACT_APP_API_HOSTNAME}/token-tip-me/us-central1/api/worldcoin/verify?appId=${process.env.REACT_APP_WORLDCOIN_APP_ID}&actionId=sign-in`,
+      `${process.env.REACT_APP_API_HOSTNAME}worldcoin/verify?appId=${process.env.REACT_APP_WORLDCOIN_APP_ID}&actionId=sign-in`,
       {
         // route to your backend will depend on implementation
         method: "POST",
