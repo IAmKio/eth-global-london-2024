@@ -10,6 +10,7 @@ import AppContainer from './components/AppContainer/AppContainer';
 import Check from './components/Check/Check';
 import Profile from './components/Profile/Profile';
 import Browse from './components/Browse/Browse';
+import Tip from './components/Tip/Tip';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
       },
       {
         path: "browse/:id",
-        element: () => <div>tip</div>,
+        element: <Tip />,
       },
     ],
   },

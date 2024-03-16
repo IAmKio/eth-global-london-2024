@@ -120,17 +120,18 @@ export default function LoginContainer() {
                     </Button>
                   )}
                 </IDKitWidget>
-
-                <Typography
-                  color="danger"
-                  level="body-sm"
-                  textAlign={"center"}
-                  mt={2}
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => startWorldIdSignout()}
-                >
-                  Sign out of World ID
-                </Typography>
+                {localStorage.getItem("loginProvider") === "worldcoin" && (
+                  <Typography
+                    color="danger"
+                    level="body-sm"
+                    textAlign={"center"}
+                    mt={2}
+                    sx={{ cursor: "pointer" }}
+                    onClick={() => startWorldIdSignout()}
+                  >
+                    Sign out of World ID
+                  </Typography>
+                )}
               </Grid>
             </Grid>
           </Card>

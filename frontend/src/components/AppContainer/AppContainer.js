@@ -21,7 +21,7 @@ export default function AppContainer() {
 
   return (
     <EtherspotTransactionKit
-      projectKey="public-prime-testnet-key"
+      projectKey={process.env.REACT_APP_ETHERSPOT_KEY}
       provider={providerWallet}
     >
       <Grid container>
