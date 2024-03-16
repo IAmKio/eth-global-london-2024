@@ -29,7 +29,7 @@ import { ethers } from 'ethers';
 export default function Tip() {
   const { send, containsEstimatingError, containsSendingError } =
     useEtherspotTransactions();
-  const balances = useEtherspotBalances(process.env.REACT_APP_CHAIN_ID);
+  const balances = useEtherspotBalances(+process.env.REACT_APP_CHAIN_ID);
   const etherspotUtils = useEtherspotUtils();
   const [fetchedBalances, setFetchedBalances] = useState(null);
   const [sendValue, setSendValue] = useState(0);
@@ -42,7 +42,7 @@ export default function Tip() {
     isLoading,
     isFetching,
   } = useGetJarsByIdQuery(params.id);
-  const { getPrice } = useEtherspotPrices(process.env.REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID);
+  const { getPrice } = useEtherspotPrices(+process.env.REACT_APP_NATIVE_ASSET_PRICE_CHAIN_ID);
 
   useEffect(() => {
     const fetchAssetPrice = async () => {
@@ -54,7 +54,7 @@ export default function Tip() {
   }, []);
 
   const fetchedBalancesAction = async () => {
-    const fetchedBalances = await balances.getAccountBalances(undefined, process.env.REACT_APP_CHAIN_ID);
+    const fetchedBalances = await balances.getAccountBalances(undefined, +process.env.REACT_APP_CHAIN_ID);
     setFetchedBalances(fetchedBalances);
   };
 
@@ -135,7 +135,7 @@ export default function Tip() {
           <FormControl>
             <Typography>How much do you want to tip {params.id}?</Typography>
             <EtherspotBatches onSent={onSendReceiver}>
-              <EtherspotBatch chainId={process.env.REACT_APP_CHAIN_ID}>
+              <EtherspotBatch chainId={+process.env.REACT_APP_CHAIN_ID}>
                 <EtherspotTransaction
                   to={jarsData.etherspotAddress}
                   value={sendValue}
@@ -168,7 +168,7 @@ export default function Tip() {
                         onClick={() => updateSendValue(+(sendValue ?? 0) + amountToAdd)}
                       >
                         +{amountToAdd} {process.env.REACT_APP_ASSET_SYMBOL}
-                        {assetPrice && ` ($${(amountToAdd * assetPrice).toFixed(2)})`}
+                        {!!assetPrice && ` ($${(amountToAdd * assetPrice).toFixed(2)})`}
                       </Chip>
                     ))}
                   </Box>

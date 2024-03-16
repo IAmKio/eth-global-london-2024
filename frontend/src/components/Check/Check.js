@@ -7,7 +7,7 @@ import { LinearGradient } from "react-text-gradients";
 import doneAnimation from "../../assets/lottie/done.json";
 
 export default function CHeck() {
-  const etherspotAddress = useWalletAddress("etherspot-prime", process.env.REACT_APP_CHAIN_ID);
+  const etherspotAddress = useWalletAddress("etherspot-prime", +process.env.REACT_APP_CHAIN_ID);
   const navigate = useNavigate();
 
   useEffect(() => {
