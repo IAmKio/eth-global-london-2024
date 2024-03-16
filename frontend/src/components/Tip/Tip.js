@@ -162,7 +162,7 @@ export default function Tip() {
                     }
                   />
                   <Box sx={{ mt: 1, mb: 1 }}>
-                    {[0.001, 1, 5, 25, 100].map((amountToAdd, index) => (
+                    {[0.05, 1, 5, 25, 100].map((amountToAdd, index) => (
                       <Chip
                         key={`${index}-quick-add`}
                         onClick={() => updateSendValue(+(sendValue ?? 0) + amountToAdd)}
