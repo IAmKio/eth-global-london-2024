@@ -1,6 +1,6 @@
 name: Build and deploy
 
-on: workflow_dispatch
+on: [push]
 
 jobs:
   build:
@@ -17,6 +17,7 @@ jobs:
       - name: Build static website
         run: |
           env
+          cd frontend
           npm i
           npm run build
         env:
