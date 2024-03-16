@@ -24,11 +24,17 @@ export default function Profile() {
   const { data: jarsData, isLoading, isFetching } = useGetJarsQuery();
   const [triggerSave, saveResult] = useUpdateJarsMutation();
   const [handle, setHandle] = React.useState("");
-  const etherspotAddress = useWalletAddress("etherspot-prime", +process.env.REACT_APP_CHAIN_ID);
+  const etherspotAddress = useWalletAddress(
+    "etherspot-prime",
+    +process.env.REACT_APP_CHAIN_ID
+  );
   const [saving, setSaving] = React.useState(false);
 
   const fetchedBalancesAction = async () => {
-    const fetchedBalances = await balances.getAccountBalances(undefined, +process.env.REACT_APP_CHAIN_ID);
+    const fetchedBalances = await balances.getAccountBalances(
+      undefined,
+      +process.env.REACT_APP_CHAIN_ID
+    );
     setFetchedBalance(fetchedBalances);
   };
 
@@ -104,9 +110,8 @@ export default function Profile() {
             fontFamily={"monospace"}
             textAlign={"center"}
           >
-            {fetchedBalance
-              ? etherspotUtils.parseBigNumber(fetchedBalance[0].balance)
-              : 0}
+            {fetchedBalance?.length &&
+              etherspotUtils.parseBigNumber(fetchedBalance[0].balance)}
           </Typography>
         </Box>
       )}
