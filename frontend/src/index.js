@@ -5,11 +5,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store";
+import LoginContainer from './components/LoginContainer/LoginContainer';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <p>yo</p>,
+    element: <LoginContainer />,
     // errorElement: <NotFound />,
   },
 ]);
