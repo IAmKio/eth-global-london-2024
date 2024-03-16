@@ -1,0 +1,24 @@
+name: Build and deploy
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Build static website
+        run: |
+          env
+          npm i
+          npm run build
+        env:
+          REACT_APP_PUBLIC_PLATFORM_API: "https://api-dy5ynjdjtq-uc.a.run.app"
+          REACT_APP_WORLDCOIN_APP_ID: "app_staging_73bcd9155d492ed847a45a92360ed9c7"
