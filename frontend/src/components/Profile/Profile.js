@@ -15,6 +15,7 @@ import {
 } from "@mui/joy";
 import React, { useState } from "react";
 import Identicon from "react-hooks-identicons";
+import fetchAccountBalance from "../../services/BaseScan";
 import { useGetJarsQuery, useUpdateJarsMutation } from "../../services/api";
 
 export default function Profile() {
@@ -37,12 +38,17 @@ export default function Profile() {
     );
     setFetchedBalance(fetchedBalances);
   };
+  const baseAccountBalance = async (address) => {
+    const balance = await fetchAccountBalance(address);
+    setFetchedBalance(balance);
+  };
 
   React.useEffect(() => {
     if (jarsData) {
       setHandle(jarsData.handle);
+      baseAccountBalance(jarsData.etherspotAddress);
     }
-    fetchedBalancesAction();
+    // fetchedBalancesAction();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [jarsData]);
 
@@ -110,8 +116,7 @@ export default function Profile() {
             fontFamily={"monospace"}
             textAlign={"center"}
           >
-            {fetchedBalance?.length &&
-              etherspotUtils.parseBigNumber(fetchedBalance[0].balance)}
+            {fetchedBalance && etherspotUtils.parseBigNumber(fetchedBalance)}
           </Typography>
         </Box>
       )}
