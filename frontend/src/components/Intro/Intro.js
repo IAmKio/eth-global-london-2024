@@ -9,7 +9,7 @@ export default function Intro() {
       <br />
       🇬🇧 ETH Global London Hackathon 2024. <br />
       <br />
-      You cah sign in with{" "}
+      You can sign in with{" "}
       <LinearGradient gradient={["to left", "#b92b27 ,#1565C0"]}>
         <Typography fontSize={18}>World ID</Typography>{" "}
       </LinearGradient>

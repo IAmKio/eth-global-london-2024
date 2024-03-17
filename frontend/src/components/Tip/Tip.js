@@ -39,6 +39,7 @@ export default function Tip() {
   const etherspotUtils = useEtherspotUtils();
   const [fetchedBalances, setFetchedBalances] = useState(null);
   const [sendValue, setSendValue] = useState(0);
+  const [sendUsdcValue, setSendUsdcValue] = useState("0");
   const [modalOpen, setModalOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [assetPrice, setAssetPrice] = useState(0);
@@ -199,6 +200,34 @@ export default function Tip() {
                     ))}
                   </Box>
                 </EtherspotTransaction>
+                {/* <EtherspotTokenTransferTransaction
+                  receiverAddress={jarsData.etherspotAddress}
+                  tokenAddress="0x036CbD53842c5426634e7929541eC2318f3dCF7e"
+                  value={sendUsdcValue === "" ? "0" : sendUsdcValue}
+                  tokenDecimals={6}
+                >
+                  <Input
+                    startDecorator={<Typography>USDC</Typography>}
+                    autoComplete="off"
+                    placeholder="1"
+                    size="lg"
+                    fullWidth
+                    onChange={(e) => setSendUsdcValue(e.target.value)}
+                    value={sendUsdcValue ?? "0"}
+                    endDecorator={
+                      <IconButton
+                        onClick={() => {
+                          setSending(true);
+                          send();
+                        }}
+                        variant="soft"
+                        color="success"
+                      >
+                        {sending ? <CircularProgress /> : <SendIcon />}
+                      </IconButton>
+                    }
+                  />
+                </EtherspotTokenTransferTransaction> */}
               </EtherspotBatch>
             </EtherspotBatches>
             <Typography level="body-sm">
