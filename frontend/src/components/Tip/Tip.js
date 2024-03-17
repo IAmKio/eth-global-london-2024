@@ -117,8 +117,9 @@ export default function Tip() {
             level="h1"
             textColor={"common.black"}
             textAlign={"center"}
+            sx={{ textShadow: "1px 1px #FFFFFF" }}
           >
-            Well, aren't you a kind soul?
+            Your tip is on the way!
           </Typography>
         </Box>
       </Modal>
@@ -146,7 +147,13 @@ export default function Tip() {
           </Box>
           <FormControl>
             <Typography>How much do you want to tip {params.id}?</Typography>
-            <EtherspotBatches onSent={onSendReceiver}>
+            <EtherspotBatches
+              // paymaster={{
+              //   url: "https://arka.etherspot.io/?api_key=arka_public_key",
+              //   context: "sponsor",
+              // }}
+              onSent={onSendReceiver}
+            >
               <EtherspotBatch chainId={+process.env.REACT_APP_CHAIN_ID}>
                 <EtherspotTransaction
                   to={jarsData.etherspotAddress}
