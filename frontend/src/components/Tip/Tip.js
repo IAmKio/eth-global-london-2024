@@ -39,7 +39,7 @@ export default function Tip() {
   const etherspotUtils = useEtherspotUtils();
   const [fetchedBalances, setFetchedBalances] = useState(null);
   const [sendValue, setSendValue] = useState(0);
-  const [sendUsdcValue, setSendUsdcValue] = useState("0");
+  // const [sendUsdcValue, setSendUsdcValue] = useState("0");
   const [modalOpen, setModalOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [assetPrice, setAssetPrice] = useState(0);
